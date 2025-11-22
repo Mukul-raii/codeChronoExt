@@ -252,9 +252,6 @@ export class GitTracker {
     }
   }
 
-  // -------------------------------------------------------
-  // 🧩 RETURN COMMIT FOR A FILE PATH
-  // -------------------------------------------------------
   public getActiveCommitForPath(fsPath: string): string | undefined {
     let bestMatch: string | undefined;
 
@@ -278,9 +275,6 @@ export class GitTracker {
     return this.getActiveCommitForPath(projectPath);
   }
 
-  /**
-   * Get active branch for a given file path
-   */
   public getActiveBranchForPath(fsPath: string): string | undefined {
     let bestMatch: string | undefined;
 
