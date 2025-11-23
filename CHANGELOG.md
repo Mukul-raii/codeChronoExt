@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to the CodeChrono extension will be documented in this file.
+All notable changes to the Miss-Minutes extension will be documented in this file.
 
 ## [0.0.2] - 2025-11-21
 
@@ -25,5 +25,5 @@ All notable changes to the CodeChrono extension will be documented in this file.
 - Git commit integration
 - Language detection
 - Project tracking
-- Cloud sync to CodeChrono dashboard
+- Cloud sync to Miss-Minutes dashboard
 - Smart idle detection

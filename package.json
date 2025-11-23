@@ -1,8 +1,8 @@
 {
-  "name": "codechrono-extension",
-  "displayName": "CodeChrono - Time Tracker",
+  "name": "miss-minutes",
+  "displayName": "Miss-Minutes - Time Tracker",
   "description": "Automatic coding time tracker with git integration and analytics",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "publisher": "Mukulrai",
   "engines": {
     "vscode": "^1.80.0"
@@ -23,19 +23,19 @@
   ],
   "activationEvents": [
     "onStartupFinished",
-    "onCommand:codechrono.setApiKey",
-    "onCommand:codechrono.helloWorld"
+    "onCommand:miss-minutes.setApiKey",
+    "onCommand:miss-minutes.helloWorld"
   ],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "codechrono.setApiKey",
-        "title": "CodeChrono: Set API Key"
+        "command": "miss-minutes.setApiKey",
+        "title": "Miss-Minutes: Set API Key"
       },
       {
-        "command": "codechrono.helloWorld",
-        "title": "CodeChrono: Hello World"
+        "command": "miss-minutes.helloWorld",
+        "title": "Miss-Minutes: Hello World"
       }
     ]
   },

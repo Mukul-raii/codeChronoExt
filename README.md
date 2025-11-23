@@ -1,6 +1,6 @@
-# CodeChrono Extension
+# Miss-Minutes Extension
 
-Track your coding time automatically with CodeChrono!
+Track your coding time automatically with Miss-Minutes!
 
 ## Features
 
@@ -8,19 +8,19 @@ Track your coding time automatically with CodeChrono!
 - **Git Integration**: Automatically links your coding sessions to git commits
 - **Language Analytics**: See which programming languages you use most
 - **Project Tracking**: Track time spent on different projects
-- **Cloud Sync**: Syncs your data to CodeChrono dashboard
+- **Cloud Sync**: Syncs your data to Miss-Minutes dashboard
 
 ## Installation
 
 1. Install the extension from VS Code Marketplace
-2. Sign up at [CodeChrono Dashboard](http://localhost:3000) (or your hosted instance)
+2. Sign up at [Miss-Minutes Dashboard](http://localhost:3000) (or your hosted instance)
 3. Get your API token from the dashboard
-4. Run command `CodeChrono: Set API Key` in VS Code
+4. Run command `Miss-Minutes: Set API Key` in VS Code
 5. Paste your API token
 
 ## Usage
 
-Once configured, CodeChrono automatically tracks your coding activity:
+Once configured, Miss-Minutes automatically tracks your coding activity:
 
 - **Coding Time**: Tracks when you're actively coding
 - **File Changes**: Records which files you're working on
@@ -30,20 +30,20 @@ Once configured, CodeChrono automatically tracks your coding activity:
 
 ## Commands
 
-- `CodeChrono: Set API Key` - Configure your API token
+- `Miss-Minutes: Set API Key` - Configure your API token
 
 ## Requirements
 
 - VS Code 1.80.0 or higher
-- CodeChrono account (sign up at your dashboard)
+- Miss-Minutes account (sign up at your dashboard)
 
 ## Privacy
 
-Your coding data is stored locally and synced only to your CodeChrono account. We never share your data with third parties.
+Your coding data is stored locally and synced only to your Miss-Minutes account. We never share your data with third parties.
 
 ## Support
 
-Having issues? [Open an issue](https://github.com/Mukul-raii/CodeChrono/issues)
+Having issues? [Open an issue](https://github.com/Mukul-raii/Miss-Minutes/issues)
 
 ## License
 

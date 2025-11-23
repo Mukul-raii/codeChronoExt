@@ -14,32 +14,32 @@ let gitTracker: GitTracker;
 
 export async function activate(context: vscode.ExtensionContext) {
   const logger = Logger.getInstance();
-  logger.info("CodeChrono extension is activating...");
+  logger.info("Miss-Minutes extension is activating...");
 
   try {
     // Register commands first before any async operations
     // Auth Command
     const setApiKeyCommand = vscode.commands.registerCommand(
-      "codechrono.setApiKey",
+      "miss-minutes.setApiKey",
       async () => {
         const token = await vscode.window.showInputBox({
-          prompt: "Enter your CodeChrono API Token",
+          prompt: "Enter your Miss-Minutes API Token",
           password: true,
           ignoreFocusOut: true,
           placeHolder: "Paste your API token here",
         });
 
         if (token) {
-          await context.secrets.store("codechrono_api_token", token);
+          await context.secrets.store("miss_minutes_api_token", token);
           if (apiClient) {
             apiClient.updateToken(token);
           }
           vscode.window.showInformationMessage(
-            "CodeChrono: API Token saved successfully!"
+            "Miss-Minutes: API Token saved successfully!"
           );
           logger.info("API Token saved");
           if (statusBarManager) {
-            statusBarManager.updateStatus("CodeChrono: Active");
+            statusBarManager.updateStatus("Miss-Minutes: Active");
           }
         }
       }
@@ -48,9 +48,9 @@ export async function activate(context: vscode.ExtensionContext) {
 
     // Hello World Command
     const helloWorldCommand = vscode.commands.registerCommand(
-      "codechrono.helloWorld",
+      "miss-minutes.helloWorld",
       () => {
-        vscode.window.showInformationMessage("Hello World from CodeChrono!");
+        vscode.window.showInformationMessage("Hello World from Miss-Minutes!");
         logger.info("Hello World command executed");
       }
     );
@@ -84,30 +84,30 @@ export async function activate(context: vscode.ExtensionContext) {
     tracker.startTracking();
 
     // Check for existing token
-    const token = await context.secrets.get("codechrono_api_token");
+    const token = await context.secrets.get("miss_minutes_api_token");
     if (!token) {
       statusBarManager.updateStatus(
-        "CodeChrono: No Token",
+        "Miss-Minutes: No Token",
         "Click to set API Token"
       );
       const selection = await vscode.window.showWarningMessage(
-        "CodeChrono: API Token is missing. Please provide it to enable syncing.",
+        "Miss-Minutes: API Token is missing. Please provide it to enable syncing.",
         "Enter API Token"
       );
       if (selection === "Enter API Token") {
-        vscode.commands.executeCommand("codechrono.setApiKey");
+        vscode.commands.executeCommand("miss-minutes.setApiKey");
       }
     } else {
       logger.info("API Token found.");
       apiClient.updateToken(token);
-      statusBarManager.updateStatus("CodeChrono: Active");
+      statusBarManager.updateStatus("Miss-Minutes: Active");
     }
 
-    logger.info("CodeChrono initialized successfully");
+    logger.info("Miss-Minutes initialized successfully");
   } catch (err) {
-    logger.error("Error activating CodeChrono extension", err as Error);
+    logger.error("Error activating Miss-Minutes extension", err as Error);
     vscode.window.showErrorMessage(
-      `CodeChrono failed to activate: ${(err as Error).message}`
+      `Miss-Minutes failed to activate: ${(err as Error).message}`
     );
   }
 }
