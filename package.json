@@ -4,6 +4,7 @@
   "description": "Automatic coding time tracker with git integration and analytics",
   "version": "0.0.4",
   "publisher": "Mukulrai",
+  "icon": "icon.png",
   "engines": {
     "vscode": "^1.80.0"
   },
