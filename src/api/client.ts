@@ -4,6 +4,7 @@ import {
   ActivityLog,
   GitCommit,
   FileActivitySummary,
+  DailyActivitySummary,
 } from "../storage/database";
 
 export class ApiClient {
@@ -145,6 +146,44 @@ export class ApiClient {
       return true;
     } catch (error) {
       this.logger.error("Failed to sync file activities", error as Error);
+      return false;
+    }
+  }
+
+  /**
+   * Sync daily aggregated stats
+   */
+  public async syncDailyStats(
+    dailyStats: DailyActivitySummary[]
+  ): Promise<boolean> {
+    if (dailyStats.length === 0) {
+      return true;
+    }
+
+    const mutation = gql`
+      mutation SyncDailyStats($input: [DailyStatsInput!]!) {
+        syncDailyStats(input: $input) {
+          success
+          message
+        }
+      }
+    `;
+
+    const input = dailyStats.map((stat) => ({
+      date: stat.date,
+      projectPath: stat.projectPath,
+      totalDuration: stat.totalDuration,
+      languageBreakdown: JSON.stringify(stat.languageBreakdown),
+      filesEdited: stat.filesEdited.length,
+      commitCount: stat.commitCount,
+    }));
+
+    try {
+      await this.client.request(mutation, { input });
+      this.logger.info(`Synced ${dailyStats.length} daily stats summaries`);
+      return true;
+    } catch (error) {
+      this.logger.error("Failed to sync daily stats", error as Error);
       return false;
     }
   }

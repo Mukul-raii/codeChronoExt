@@ -174,7 +174,35 @@ export class Tracker {
 
     // Sync DB to API
     try {
-      // Sync aggregated file activities
+      // 1. Sync daily aggregated stats (for completed days)
+      const yesterday = new Date();
+      yesterday.setDate(yesterday.getDate() - 1);
+      const yesterdayStr = yesterday.toISOString().split("T")[0];
+
+      const dailyStats = await this.db.getDailyAggregatedActivities(30);
+      const completedDayStats = dailyStats.filter(
+        (stat) => stat.date < yesterdayStr
+      );
+
+      if (completedDayStats.length > 0) {
+        this.logger.debug(
+          `Syncing ${completedDayStats.length} daily stats summaries`
+        );
+        const success = await this.apiClient.syncDailyStats(completedDayStats);
+        if (success) {
+          // Delete old activities (keep last 7 days for safety)
+          const deleteBeforeDate = new Date();
+          deleteBeforeDate.setDate(deleteBeforeDate.getDate() - 7);
+          await this.db.deleteActivitiesBeforeDate(
+            deleteBeforeDate.toISOString().split("T")[0]
+          );
+          this.logger.info(
+            `Synced and cleaned up ${completedDayStats.length} daily stats`
+          );
+        }
+      }
+
+      // 2. Sync file-level aggregated activities (for commits)
       const aggregatedActivities = await this.db.getAggregatedActivities(50);
       if (aggregatedActivities.length > 0) {
         this.logger.debug(
@@ -184,15 +212,17 @@ export class Tracker {
           aggregatedActivities
         );
         if (success) {
-          // Delete the individual activity logs that were aggregated
           await this.db.deleteAggregatedActivities(aggregatedActivities);
+          this.logger.info(
+            `Synced ${aggregatedActivities.length} file activities`
+          );
           this.statusBarManager.updateStatus("CodeChrono: Synced");
         } else {
           this.statusBarManager.updateStatus("CodeChrono: Offline");
         }
       }
 
-      // Sync git commits
+      // 3. Sync git commits
       const commits = await this.db.getUnsyncedCommits(20);
       if (commits.length > 0) {
         this.logger.debug(`Syncing ${commits.length} commits`);
